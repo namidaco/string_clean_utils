@@ -1,6 +1,6 @@
 name: string_clean_utils
 description: Dart library to remove/replace diacritics, accents, symbols & confusables from text
-version: 1.0.0
+version: 1.0.2
 homepage:
 
 environment:
