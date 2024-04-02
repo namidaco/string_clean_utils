@@ -25,4 +25,10 @@ void main() {
     const expected = 'TheQuickBrownFoxJumpedovertheLazyDog';
     expect(normalized, expected);
   });
+  test('Ensure main letters are not changed', () {
+    const lower = 'qwertyuiopasdfghjklzxcvbnm';
+    const upper = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+    expect(lower, StringCleanUtils.normalize(lower));
+    expect(upper, StringCleanUtils.normalize(upper));
+  });
 }
