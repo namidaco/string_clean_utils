@@ -1,39 +1,30 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# A Dart library to remove/replace diacritics, accents, symbols & confusables from text
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## Examples Usage
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+- Replaces diacritics & accents with original text
 ```dart
-const like = 'sample';
+    final normalized = StringCleanUtils.normalize('𝒉𝒂𝒓𝒍𝒆𝒚𝒔 𝒊𝒏 𝒉𝒂𝒘𝒂𝒊𝒊 - 𝒌𝒂𝒕𝒚 𝒑𝒆𝒓𝒓𝒚');
+    print(normalized); // 'harleys in hawaii - katy perry';
+
+    final normalized2 = StringCleanUtils.normalize('𝑻𝒉𝒆 ℚ𝕦𝕚𝕔𝕜 Ｂｒｏｗｎ Fox 𝔍𝔲𝔪𝔭𝔢𝔡 ⓞⓥⓔⓡ ʇɥǝ 𝗟𝗮𝘇𝘆 𝙳𝚘𝚐');
+    print(normalized2); // 'The Quick Brown Fox Jumped over the Lazy Dog';
 ```
 
-## Additional information
+- Remove symbols from text
+```dart
+    final normalized = StringCleanUtils.removeSymbols('The [Quick }Brown Fox %Jumped over ^the Lazy @Dog');
+    print(normalized); // 'The Quick Brown Fox Jumped over the Lazy Dog';
+```
+  
+- Remove symbols & whitespaces from text
+```dart
+    final normalized = StringCleanUtils.removeSymbolsAndWhitespaces('The [Quick }Brown Fox %Jumped over ^the Lazy @Dog');
+    print(normalized); // 'TheQuickBrownFoxJumpedovertheLazyDog';
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+
+### Note
+- confusable & diacritics rules are generated with [`confusable_to_map.dart`](./confusable_to_map.dart) relying on [`confusables.txt`](./confusables.txt) & [`diacritics.dart`](./diacritics.dart)
+  - confusable source: https://www.unicode.org/Public/security/10.0.0/confusables.txt 
+  - diacritics source: https://www.npmjs.com/package/diacritics-map
