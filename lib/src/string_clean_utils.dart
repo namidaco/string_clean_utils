@@ -3,16 +3,18 @@ part 'multi_unit_map.dart';
 part 'diacritics_map.dart';
 
 class StringCleanUtils {
-  static const _symbolsRegexBase = r'''!"#$%&'()*+,\-.\/:;<=>?@[\]{}\\^_`~|@#$%^&*()-+=\[\]{}:;"'<>,?/`~!_''';
+  static const _symbolsRegexBase = r'''!"#$%&'()*+,\-./:;<=>?@\[\]{}\\^_`~|''';
+  static final _regexSymbols = RegExp("[$_symbolsRegexBase]+");
+  static final _regexSymbolsAndWhitespaces = RegExp("[$_symbolsRegexBase\\s]+");
 
   /// Replaces diacritics & accents with original characters.
   static String normalize(String text) => String.fromCharCodes(replaceCodeUnits(text.runes));
 
   /// Removes symbols from text, eg. `!@#$%^&*()[]{}~"'?+-`.
-  static String removeSymbols(String text) => text.replaceAll(RegExp("[$_symbolsRegexBase]+"), '');
+  static String removeSymbols(String text) => text.replaceAll(_regexSymbols, '');
 
   /// Same as [removeSymbols] but also removes whitespaces.
-  static String removeSymbolsAndWhitespaces(String text) => text.replaceAll(RegExp("[$_symbolsRegexBase\\s]+"), '');
+  static String removeSymbolsAndWhitespaces(String text) => text.replaceAll(_regexSymbolsAndWhitespaces, '');
 
   /// Note: use `String.runes` to automatically combine surrogate units.
   static List<int> replaceCodeUnits(Iterable<int> codeUnits) {
